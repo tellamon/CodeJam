@@ -1,35 +1,29 @@
+import sys
+import collections
 
 class Case :
     def __init__(self, C, I, P) :
         self.C = int(C)
         self.I = int(I)
-        self.P = map(int, P.split())
-        pass
-    def __repr__(self) :
-        return str(self.C)
+        self.P = map(int, P.split())        
+        assert (self.I == len(self.P))  
     def GetIndex(self) :
         for i in range(0,len(self.P)-1):
             for j in range(i+1,len(self.P)):
-                #print self.C, self.P[i], self.P[j]
                 if(self.C == (self.P[i] + self.P[j])) :                    
                     return (i,j)
 
-        raise Exception("NOT TO BE REACHED")
+        assert(0) # Not to be reached.
     def Solve(self, idx, fout) :
         (i,j) = self.GetIndex()
-        outstr = "Case #%d: %d %d\n" % (idx,i+1,j+1)
-        fout.write(outstr)
+        fout.write("Case #%d: %d %d\n" % (idx,i+1,j+1))        
                    
-#f = open("A-small-practice.in")
-f = open("A-large-practice.in")
-
-lines = f.readlines()
-
-lines.reverse()
-N = int(lines.pop())
-
-fout = open("solution.txt","w")
+#fin = open("A-small-practice.in")
+fin = open(sys.argv[1])
+lines = collections.deque(fin.readlines())
+N = int(lines.popleft())
+fout = open(sys.argv[1][:-2] + "out","w")
 for i in range(1,N+1) :
-    c = Case(lines.pop(),lines.pop(),lines.pop())
+    c = Case(lines.popleft(),lines.popleft(),lines.popleft())
     c.Solve(i,fout)    
 fout.close()
