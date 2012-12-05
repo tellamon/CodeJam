@@ -7,7 +7,7 @@ class Case :
         self.I = int(I)
         self.P = map(int, P.split())        
         assert (self.I == len(self.P))  
-    def GetIndex(self) :
+    def GetResult(self) :
         for i in range(0,len(self.P)-1):
             for j in range(i+1,len(self.P)):
                 if(self.C == (self.P[i] + self.P[j])) :                    
@@ -15,7 +15,7 @@ class Case :
 
         assert(0) # Not to be reached.
     def Solve(self, idx, fout) :
-        (i,j) = self.GetIndex()
+        (i,j) = self.GetResult()
         fout.write("Case #%d: %d %d\n" % (idx,i+1,j+1))        
                    
 #fin = open("A-small-practice.in")

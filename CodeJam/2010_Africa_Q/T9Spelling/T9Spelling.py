@@ -32,19 +32,18 @@ button_map = {
 }
 class Case :
     def __init__(self, S) :        
-        self.desired_messages = list(S)
-    def GetIndex(self) :
+        self.desired_messages = list(S[:len(S)-1])
+    def GetResult(self) :
         ret = ""
         prev_c = '' 
         for c in self.desired_messages :
-            if(prev_c == c) :
-                ret.append(' ')                
-            ret.append(button_map[c])           
-        
+            if(prev_c == button_map[c][0]) :
+                ret += ' '                
+            ret += button_map[c]
+            prev_c = button_map[c][0]
         return ret
     def Solve(self, idx, fout) :
-        (i,j) = self.GetIndex()
-        fout.write("Case #%d: %d %d\n" % (idx,i+1,j+1))        
+        fout.write("Case #%d: %s\n" % (idx, self.GetResult()))        
                    
 #fin = open("A-small-practice.in")
 fin = open(sys.argv[1])
